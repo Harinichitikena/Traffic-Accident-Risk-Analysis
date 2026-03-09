@@ -1,0 +1,51 @@
+# Traffic Accident Risk Analysis
+
+# Import libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load dataset
+data = pd.read_csv("traffic_accidents.csv")
+
+# Display first 5 rows
+print(data.head())
+
+# Check dataset information
+print(data.info())
+
+# Check missing values
+print(data.isnull().sum())
+
+# Remove missing values
+data = data.dropna()
+
+# Count accidents by location
+accident_count = data['Location'].value_counts()
+
+# Display top 10 high-risk zones
+print("Top 10 High Risk Zones:")
+print(accident_count.head(10))
+
+# Visualization - Accident Frequency by Location
+plt.figure(figsize=(10,6))
+accident_count.head(10).plot(kind='bar')
+plt.title("Top 10 High Risk Accident Zones")
+plt.xlabel("Location")
+plt.ylabel("Number of Accidents")
+plt.xticks(rotation=45)
+plt.show()
+
+# Accident analysis by weather condition
+plt.figure(figsize=(8,5))
+sns.countplot(x='Weather', data=data)
+plt.title("Accidents by Weather Condition")
+plt.xticks(rotation=45)
+plt.show()
+
+# Accident analysis by time
+plt.figure(figsize=(8,5))
+sns.countplot(x='Time_of_Day', data=data)
+plt.title("Accidents by Time of Day")
+plt.show()
